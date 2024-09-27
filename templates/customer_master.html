@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Tracking</title>
+    
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">-->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min2.css')}}" >
+    <script type="text/javascript" src="https://me.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=6fRlkW2qYbHs3kO1ENgakLnYjHbO6Oe6GwZphr3nBcU22r8Q0cuv-V2_xQFfT_jyMOhw33JUi9yI6dhC9jD0RvRI08CMtk-dxlGNkq6lAW6W9cpjHEp77hIpXmzAiGyZHT08rN0OX0qldmpwSeUmtL4ynBIhZf1SknRQnUu7MLM" charset="UTF-8"></script><style>
+        .navbar-toggler-color {
+  background-color: rgba(194, 134, 88, 0.434)
+}
+.txt-color {
+  color: rgb(174, 12, 244)
+}
+.custom-button {
+            position: absolute;
+            top: 15%;
+            right: 0%;
+            transform: translate(-50%, -50%);
+        }
+        .table-pos {
+            position:relative;
+            top: 120px;
+            
+        }
+        th {
+            background-color: #007bff; /* Header background color */
+            color: white; /* Header text color */
+            padding: 10px;
+        }
+
+        td {
+            background-color: #f8f9fa; /* Cell background color */
+            padding: 10px;
+            border: 1px solid #dee2e6; /* Cell border */
+        }
+
+        tr:hover td {
+            background-color: #e9ecef; /* Hover effect for rows */
+        }
+        .image-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 6px;
+            background-color: #007bff00;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .image-button img {
+            width: 12px;  /* Adjust size as needed */
+            height: auto;
+            margin-right: 8px; /* Space between image and text */
+        }
+
+        .image-button:hover {
+            background-color: #00050a00; /* Darker shade on hover */
+        }
+    </style>    
+
+</head>
+
+<body>
+
+<div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right navbar-toggler-color" id="sidebar-wrapper">
+        <div class="sidebar-heading navbar-toggler-color">Tracking</div>
+        <div class="list-group list-group-flush navbar-toggler-color">
+            <a href="{{url_for('dashboard')}}" class="list-group-item list-group-item-action txt-color">Dashboard</a>
+            <a href="{{url_for('usermaster')}}" class="list-group-item list-group-item-action txt-color">UserMaster</a>
+            <a href="{{url_for('customer')}}" class="active list-group-item list-group-item-action txt-color">Customer Master</a>
+            <a href="{{url_for('shipment')}}" class="list-group-item list-group-item-action txt-color">Shipment Master</a>
+            <a href="{{url_for('gnt_manifest')}}" class="list-group-item list-group-item-action txt-color">Generate Manifest</a>
+            <a href="{{url_for('mismaster')}}" class="list-group-item list-group-item-action txt-color">MIS Master</a>
+            <a href="{{url_for('tracking')}}" class="list-group-item list-group-item-action txt-color">Track Manifest</a>
+            <a href="{{url_for('rate')}}" class="list-group-item list-group-item-action txt-color">Rate Master</a>
+            <a href="{{url_for('urg_ship')}}" class="list-group-item list-group-item-action txt-color">Shipment Panel</a>
+        </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-blue border-bottom navbar-toggler-color">
+            <button class="btn btn-primary navbar-toggler-icon" id="menu-toggle"></button>
+            
+            
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           {{g.user.username}}
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{url_for('logout')}}">Logout</a>
+                            
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">change password</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        
+        
+    </div>
+    <!-- /#page-content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- Bootstrap core JavaScript -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+<!-- Menu Toggle Script -->
+<script>
+    $("#menu-toggle").click(function (e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    
+var modal = document.getElementById("exampleModal");
+var btn = document.getElementById("open");
+var submitBtn = document.getElementById("save");
+
+// Open the modal when the user clicks the button
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// Close the modal when the user clicks on the "x"
+
+
+// Close the modal when the user clicks outside of it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+// Submit popup data to Flask using fetch
+submitBtn.onclick = function() {
+    var Name = document.getElementById("username").value;
+    var Email = document.getElementById("mail").value;
+    var Role = document.getElementById("role").value;
+
+    // Send data to Flask using fetch
+    fetch('/pushdata', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username: Name,mail:Email,role:Role })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);  // Log the response from Flask
+        alert('Data submitted: ' + data.data);
+        window.location.href="{{url_for('usermaster')}}"
+    })
+    .catch(error => console.error('Error:', error));
+
+    // Close the modal after submission
+    modal.style.display = "none";
+}
+    
+</script>
+
+</body>
+
+</html>
