@@ -146,15 +146,15 @@
                 </thead>
                 <tbody>
                     {% for worker in value %}
-                    <tr>
-                      <td>{{ worker["userid"] }}</td>
-                      <td>{{ worker["name"] }}</td>
-                      <td>{{ worker["email"] }}</td>
-                      <td>{{ worker["role"] }}</td>
+                    <tr id="row-{{ worker.userid }}">
+                      <td>{{ worker.userid }}</td>
+                      <td>{{ worker.name }}</td>
+                      <td>{{ worker.email }}</td>
+                      <td>{{ worker.role }}</td>
                       <td>
                         <button type="button" class="image-button" data-toggle="modal" id="open" data-target="#exampleModal"><img src="static/css/edit-button.png" alt="Icon"></button>
                         <button type="button" id="Reset" class="image-button"><img src="static/css/reset-password.png" alt="Icon"></button>
-                        <button type="button" id="delete" class="image-button"><img src="static/css/delete.png" alt="Icon"></button>
+                        <button type="button" id="delete" class="image-button" onclick="deleterow({{ worker.userid }})"><img src="static/css/delete.png" alt="Icon"></button>
                         
                        
                     </td>
@@ -162,6 +162,9 @@
                     {% endfor %}
                 </tbody>
               </table>
+              <div id="customAlert" class="alert alert-warning alert-dismissible fade show d-none" role="alert">
+                <span id="alertMessage">This is a Bootstrap alert!</span>
+                </div>
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
@@ -260,6 +263,31 @@ submitBtn.onclick = function() {
     // Close the modal after submission
     modal.style.display = "none";
 }
+function deleterow(rowId) {
+        
+        
+
+            if (confirm("Are you sure you want to delete this row?")) {
+                fetch(`/delete/${rowId}`, {
+                    method: 'DELETE'
+                }).then(response => {
+                    if (response.ok) {
+                        // Remove the row from the table
+                        document.getElementById(`row-${rowId}`).remove();
+                        
+                        document.getElementById('alertMessage').textContent = "Deleted Successfully";
+                        var alertBox = document.getElementById('customAlert');
+                        alertBox.classList.remove('d-none');
+                        setTimeout(function() {
+                        alertBox.classList.add('d-none'); // Hide the alert
+                        }, 10000);
+                        window.location.href="{{url_for('usermaster')}}"
+                    } else {
+                        alert("Failed to delete the row.");
+                    }
+                });
+            }
+        }
     
 </script>
 
