@@ -55,13 +55,19 @@ def login():
             flash("Username or Password Mismatch...!!!",'danger')
             return redirect(url_for('login'))
     return render_template("login.html")
-@app.route('/delete/<int:item_id>', methods=['POST'])
-def delete(item_id):
-    cur.execute("delete from usermaster where id=?",(item_id,))
-    conn.commit()
+@app.route('/delete/<int:row_id>', methods=['DELETE'])
+def delete(row_id):
+    cur.execute("select id from usermaster where id=?",(row_id,))
+    res=cur.fetchone()
+    if res:
+        cur.execute("delete from usermaster where id=?",(row_id,))
+        conn.commit()
+        return jsonify({'success': True}), 200
+    else:
+        return jsonify({'error': 'Row not found'}), 404
 
 
-    return redirect(url_for("usermaster"))
+    #return redirect(url_for("usermaster"))
 @app.before_request
 def before_request():
     if 'userid' in session:
@@ -89,7 +95,7 @@ def usermaster():
         value.append({"userid":str(row[0]),"name":str(row[1]),"email":str(row[3]),"role":str(row[4])})
     #value.append(dic)
 
-    print(row)
+    print(value)
 
 
     return render_template('usermaster.html',value=value)
