@@ -192,5 +192,5 @@ def pushdata2():
 @app.route('/gnt_manifest')
 def gnt_manifest():
     return render_template('gnt_manifest.html')
-
-#app.run(debug=True)
+if __name__=='__main__':
+        app.run(debug=True)
